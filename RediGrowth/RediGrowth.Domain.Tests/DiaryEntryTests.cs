@@ -18,6 +18,20 @@ namespace RediGrowth.Domain.Tests
             Assert.Contains(entry.Notes, x => x.Id == noteId && x.Text == noteText);
         }
 
+        public void WhenCallingAddNoteWithAnExistingId_AnArgumentExceptionIsThrown()
+        {
+            var entry = CreateTestEntry();
+
+            var noteId = Guid.NewGuid();
+            var noteText = "A super note";
+            entry.AddNote(noteId, noteText);
+
+            var exception = Record.Exception(() => entry.AddNote(noteId, "Another super note"));
+
+            Assert.NotNull(exception);
+            Assert.IsType<ArgumentException>(exception);
+        }
+
         [Fact]
         public void WhenCallingChangeNoteAndNoteDoesntExist_AnArgumentExceptionIsThrown()
         {
