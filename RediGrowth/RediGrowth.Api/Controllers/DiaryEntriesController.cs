@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RediGrowth.Api.Models;
 using RediGrowth.Domain;
@@ -51,5 +50,19 @@ namespace RediGrowth.Api.Controllers
             return Created(Url.Action(nameof(this.Get), new { id = e.Id }), null);
         }
 
+        [HttpPut]
+        [Route("{id:guid}/rating")]
+        public ActionResult ChangeRating(Guid id, [FromBody]ChangeRatingViewModel viewModel)
+        {
+            var entry = _entries.FirstOrDefault(x => x.Id == id);
+            if (entry == null)
+            {
+                return NotFound();
+            }
+
+            entry.ChangeRating(viewModel.Rating);
+
+            return Ok();
+        }
     }
 }
