@@ -29,6 +29,11 @@ namespace RediGrowth.Domain
 
         public void AddNote(Guid noteId, string text)
         {
+            if (_notes.Any(x => x.Id == noteId))
+            {
+                throw new ArgumentNullException(nameof(noteId), $"A note with the id {noteId} already exists.");
+            }
+
             _notes.Add(new DiaryNote(noteId, this.Id, text));
         }
 
