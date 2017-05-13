@@ -64,5 +64,20 @@ namespace RediGrowth.Api.Controllers
 
             return Ok();
         }
+
+        [HttpPost]
+        [Route("{id:guid}/notes")]
+        public ActionResult AddNote(Guid id, [FromBody]AddNoteViewModel viewModel)
+        {
+            var entry = _entries.FirstOrDefault(x => x.Id == id);
+            if (entry == null)
+            {
+                return NotFound();
+            }
+
+            entry.AddNote(viewModel.Id, viewModel.Text);
+
+            return Created(Url.Action(nameof(this.Get), new { id = entry.Id }), null);
+        }
     }
 }
