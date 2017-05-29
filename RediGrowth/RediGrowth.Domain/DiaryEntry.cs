@@ -16,15 +16,14 @@ namespace RediGrowth.Domain
 
         public IEnumerable<DiaryNote> Notes => _notes;
 
-        private List<DiaryNote> _notes;
+        private List<DiaryNote> _notes = new List<DiaryNote>();
 
         public DiaryEntry(Guid id, DateTime date, Guid personId, int rating)
         {
-            PersonId = personId;
             Id = id;
+            PersonId = personId;
             Date = date;
             ChangeRating(rating);
-            _notes = new List<DiaryNote>();
         }
 
         public void AddNote(Guid noteId, string text)

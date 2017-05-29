@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RediGrowth.Domain
 {
@@ -10,16 +8,18 @@ namespace RediGrowth.Domain
 
         public DayRating(int rating)
         {
-            if (!IsInRange(rating))
-            {
-                throw new ArgumentException("Rating should be in 1 to 5 range", nameof(rating));
-            }
+            CheckIsInRange(rating);
             this.Value = rating;
         }
 
-        private bool IsInRange(int rating)
+        private void CheckIsInRange(int rating)
         {
-            return rating >= 1 && rating <= 5;
+            if (1 <= rating && rating <= 5)
+            {
+                return;
+            }
+
+            throw new ArgumentOutOfRangeException("Rating should be in 1 to 5 range", nameof(rating));
         }
 
         public override bool Equals(object obj)

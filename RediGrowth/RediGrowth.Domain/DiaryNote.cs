@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RediGrowth.Domain
 {
@@ -8,11 +6,10 @@ namespace RediGrowth.Domain
     {
         public Guid DiaryEntryId { get; }
         public string Text { get; private set; }
-        public Guid Id { get; }
+        public Guid Id { get; } = Guid.NewGuid();
 
-        public DiaryNote(Guid id, Guid diaryEntryId, string text)
+        public DiaryNote(Guid diaryEntryId, string text)
         {
-            Id = id;
             DiaryEntryId = diaryEntryId;
             ChangeText(text);
         }
