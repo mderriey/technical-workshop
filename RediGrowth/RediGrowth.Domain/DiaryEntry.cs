@@ -26,7 +26,7 @@ namespace RediGrowth.Domain
             ChangeRating(rating);
         }
 
-        public void AddNote(Guid noteId, string text)
+        public void AddNote(string text)
         {
             _notes.Add(new DiaryNote(this.Id, text));
         }
