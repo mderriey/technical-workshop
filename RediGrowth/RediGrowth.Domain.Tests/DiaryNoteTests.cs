@@ -11,7 +11,7 @@ namespace RediGrowth.Domain.Tests
         [InlineData("  ")]
         public void WhenTextIsNullOrWhitespace_AnArgumentExceptionIsThrown(string text)
         {
-            var exception = Record.Exception(() => new DiaryNote(Guid.NewGuid(), Guid.NewGuid(), text));
+            var exception = Record.Exception(() => new DiaryNote(Guid.NewGuid(), text));
 
             Assert.NotNull(exception);
             Assert.IsType<ArgumentException>(exception);
@@ -20,7 +20,7 @@ namespace RediGrowth.Domain.Tests
         [Fact]
         public void WhenTextIsNotNullOrWhitespace_NoExceptionIsThrown()
         {
-            var exception = Record.Exception(() => new DiaryNote(Guid.NewGuid(), Guid.NewGuid(), "A super note"));
+            var exception = Record.Exception(() => new DiaryNote(Guid.NewGuid(), "A super note"));
 
             Assert.Null(exception);
         }
@@ -28,7 +28,7 @@ namespace RediGrowth.Domain.Tests
         [Fact]
         public void WhenPassingTextThroughCtor_TheTextIsReflected()
         {
-            var note = new DiaryNote(Guid.NewGuid(), Guid.NewGuid(), "A super note");
+            var note = new DiaryNote(Guid.NewGuid(), "A super note");
 
             Assert.Equal("A super note", note.Text);
         }
@@ -36,7 +36,7 @@ namespace RediGrowth.Domain.Tests
         [Fact]
         public void WhenCallingChangeNote_TheTextIsUpdated()
         {
-            var note = new DiaryNote(Guid.NewGuid(), Guid.NewGuid(), "A super note");
+            var note = new DiaryNote(Guid.NewGuid(), "A super note");
             note.ChangeText("A great note");
 
             Assert.Equal("A great note", note.Text);

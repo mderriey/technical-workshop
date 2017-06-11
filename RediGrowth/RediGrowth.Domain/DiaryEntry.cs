@@ -28,7 +28,7 @@ namespace RediGrowth.Domain
 
         public void AddNote(Guid noteId, string text)
         {
-            _notes.Add(new DiaryNote(noteId, this.Id, text));
+            _notes.Add(new DiaryNote(this.Id, text));
         }
 
         public void ChangeNote(Guid noteId, string text)
