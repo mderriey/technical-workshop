@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Xunit;
 
 namespace RediGrowth.Domain.Tests
@@ -9,13 +10,11 @@ namespace RediGrowth.Domain.Tests
         public void WhenCallingAddNote_TheNoteIsAdded()
         {
             var entry = CreateTestEntry();
-
-            var noteId = Guid.NewGuid();
             var noteText = "A super note";
 
-            entry.AddNote(noteId, noteText);
+            entry.AddNote(noteText);
 
-            Assert.Contains(entry.Notes, x => x.Id == noteId && x.Text == noteText);
+            Assert.Contains(entry.Notes, x => x.Text == noteText);
         }
 
         [Fact]
@@ -33,11 +32,10 @@ namespace RediGrowth.Domain.Tests
         public void WhenCallingChangeNoteAndNoteExists_TextIsUpdated()
         {
             var entry = CreateTestEntry();
-
-            var noteId = Guid.NewGuid();
             var noteText = "A super note";
 
-            entry.AddNote(noteId, noteText);
+            entry.AddNote(noteText);
+            var noteId = entry.Notes.First().Id;
 
             entry.ChangeNote(noteId, "A great note");
 
@@ -59,11 +57,10 @@ namespace RediGrowth.Domain.Tests
         public void WhenCallingDeleteNoteAndNoteExists_NoteIsDeleted()
         {
             var entry = CreateTestEntry();
-
-            var noteId = Guid.NewGuid();
             var noteText = "A super note";
 
-            entry.AddNote(noteId, noteText);
+            entry.AddNote(noteText);
+            var noteId = entry.Notes.First().Id;
 
             entry.DeleteNote(noteId);
 

@@ -29,7 +29,7 @@ namespace RediGrowth.Domain.Tests
             var exception = Record.Exception(() => new DayRating(rating));
 
             Assert.NotNull(exception);
-            Assert.IsType<ArgumentException>(exception);
+            Assert.IsType<ArgumentOutOfRangeException>(exception);
         }
 
         public static TheoryData<DayRating, DayRating, bool> Ratings
